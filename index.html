@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clients Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- SVG Icons (inline sprite) -->
+  <svg class="icons-sprite" xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M21 12a9 9 0 1 1-2.64-6.36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M21 3v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M12 3v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 10l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M3 6h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 6V4h8v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M6 6l1 16h10l1-16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M10 11v6M14 11v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24">
+      <path d="M10 17l-1 0a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4h1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 12H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M13 9l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 4h4v16h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24">
+      <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M19.4 15a7.9 7.9 0 0 0 .1-6l2-1.2-2-3.5-2.3.7a8 8 0 0 0-5.2-3L12 0H12l-1.9 1.8a8 8 0 0 0-5.2 3L2.6 4.1l-2 3.5 2 1.2a7.9 7.9 0 0 0 .1 6l-2 1.2 2 3.5 2.3-.7a8 8 0 0 0 5.2 3L12 24l1.9-1.8a8 8 0 0 0 5.2-3l2.3.7 2-3.5-2-1.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="M12 2l2.9 6 6.6.6-5 4.2 1.5 6.4-6-3.4-6 3.4 1.5-6.4-5-4.2 6.6-.6L12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-star-fill" viewBox="0 0 24 24">
+      <path d="M12 2l2.9 6 6.6.6-5 4.2 1.5 6.4-6-3.4-6 3.4 1.5-6.4-5-4.2 6.6-.6L12 2z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24">
+      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24">
+      <path d="M9 9h10v12H9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-note" viewBox="0 0 24 24">
+      <path d="M4 3h12l4 4v14H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M16 3v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M7 13h10M7 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13 2L3 14h7l-1 8 12-14h-7l-1-6z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M21 15.5A8.5 8.5 0 1 1 8.5 3 7 7 0 0 0 21 15.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24">
+      <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24">
+      <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+  </svg>
+
+  <div class="bg"></div>
+  <div class="wrap">
+
+    <header class="topbar">
+      <div class="title">
+        <div class="h1">Clients <span>Dashboard</span></div>
+        <div class="subtitle" id="subTitle">Live view</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btnRefresh">
+          <svg class="ico" aria-hidden="true"><use href="#i-refresh"></use></svg><span>Refresh</span>
+        </button>
+        <button class="btn btn-indigo" id="btnExport">
+          <svg class="ico" aria-hidden="true"><use href="#i-download"></use></svg><span>Export</span>
+        </button>
+        <button class="btn btn-red" id="btnClear">
+          <svg class="ico" aria-hidden="true"><use href="#i-trash"></use></svg><span>Clear</span>
+        </button>
+        <button class="btn btn-amber" id="btnLogout">
+          <svg class="ico" aria-hidden="true"><use href="#i-logout"></use></svg><span>Logout</span>
+        </button>
+        <button class="btn btn-ghost btn-icon" id="btnSettings" title="Settings">
+          <svg class="ico" aria-hidden="true"><use href="#i-settings"></use></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <div class="card-label">Total Clients</div>
+        <div class="card-value violet" id="totalClients">0</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Active Clients</div>
+        <div class="card-value green" id="activeClients">0</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Inactive Clients</div>
+        <div class="card-value red" id="inactiveClients">0</div>
+      </div>
+    </section>
+
+    <section class="search">
+      <div class="search-row">
+        <div class="input-wrap">
+          <svg class="ico ico-muted" aria-hidden="true"><use href="#i-search"></use></svg>
+          <input id="searchInput" placeholder="Search clients..." />
+        </div>
+
+        <div class="chips">
+          <button class="chip" id="chipAll" data-filter="all">
+            <svg class="ico ico-14" aria-hidden="true"><use href="#i-grid"></use></svg><span>All</span>
+          </button>
+          <button class="chip" id="chipActive" data-filter="active">
+            <svg class="ico ico-14" aria-hidden="true"><use href="#i-bolt"></use></svg><span>Active</span>
+          </button>
+          <button class="chip" id="chipInactive" data-filter="inactive">
+            <svg class="ico ico-14" aria-hidden="true"><use href="#i-moon"></use></svg><span>Inactive</span>
+          </button>
+          <button class="chip" id="chipFav" data-filter="fav">
+            <svg class="ico ico-14" aria-hidden="true"><use href="#i-star"></use></svg><span>Favorites</span>
+          </button>
+        </div>
+      </div>
+      <div class="hint">ПКМ по строке клиента → меню (Basic / General / Fun)</div>
+    </section>
+
+    <section class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th class="th-star"><svg class="ico ico-16" aria-hidden="true"><use href="#i-star"></use></svg></th>
+            <th data-sort="pc_name">PC Name</th>
+            <th data-sort="ip_address">IP Address</th>
+            <th data-sort="cpu">CPU</th>
+            <th data-sort="gpu">GPU</th>
+            <th data-sort="last_seen">Last Seen</th>
+            <th data-sort="status">Status</th>
+            <th class="th-actions"><svg class="ico ico-16" aria-hidden="true"><use href="#i-eye"></use></svg><span>Actions</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- Details modal -->
+    <div class="modal" id="modal">
+      <div class="modal-card">
+        <div class="modal-title">
+          <span id="modalTitleText">Client Details</span>
+          <div class="modal-mini" id="modalMini"></div>
+        </div>
+        <pre class="modal-pre" id="modalPre"></pre>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="btnCopyJson">Copy JSON</button>
+          <button class="btn btn-ghost" id="modalClose">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings modal -->
+    <div class="modal" id="settingsModal">
+      <div class="modal-card">
+        <div class="modal-title">Settings</div>
+
+        <div class="form">
+          <div class="form-row">
+            <label class="lbl">Auto refresh</label>
+            <label class="toggle">
+              <input type="checkbox" id="setAutoRefresh">
+              <span class="toggle-ui"></span>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Refresh interval</label>
+            <div class="inline">
+              <input type="number" id="setInterval" min="300" step="100" />
+              <span class="unit">ms</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Active window</label>
+            <div class="inline">
+              <input type="number" id="setActiveMinutes" min="1" step="1" />
+              <span class="unit">minutes</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Compact mode</label>
+            <label class="toggle">
+              <input type="checkbox" id="setCompact">
+              <span class="toggle-ui"></span>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Show columns</label>
+            <div class="cols">
+              <label><input type="checkbox" id="colCpu"> CPU</label>
+              <label><input type="checkbox" id="colGpu"> GPU</label>
+              <label><input type="checkbox" id="colLast"> Last Seen</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Theme</label>
+            <div class="inline">
+              <select id="setTheme">
+                <option value="neon">Neon</option>
+                <option value="mono">Mono</option>
+                <option value="cyber">Cyber</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="lbl">Reset</label>
+            <button class="btn btn-red" id="btnResetSettings">
+              <svg class="ico" aria-hidden="true"><use href="#i-trash"></use></svg><span>Reset settings</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btnSaveSettings">Save</button>
+          <button class="btn btn-ghost" id="btnCloseSettings">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context menu -->
+    <div class="ctxmenu" id="ctxMenu">
+      <div class="ctx-head">
+        <div class="ctx-title">
+          <div class="ctx-name" id="ctxName">Client</div>
+          <div class="ctx-sub" id="ctxSub">—</div>
+        </div>
+        <button class="ctx-close" id="ctxClose" title="Close">
+          <svg class="ico ico-16" aria-hidden="true"><use href="#i-close"></use></svg>
+        </button>
+      </div>
+      <div class="ctx-body">
+
+        <div class="ctx-section open" data-ctxsection="general">
+          <button class="ctx-sec-head" type="button">
+            <span class="ctx-sec-title">General</span>
+            <span class="ctx-sec-arrow"><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
+          </button>
+          <div class="ctx-sec-body">
+            <button class="ctx-item" data-ctx="view"><svg class="ico ico-16" aria-hidden="true"><use href="#i-eye"></use></svg><span>View info</span></button>
+            <button class="ctx-item" data-ctx="logs"><svg class="ico ico-16" aria-hidden="true"><use href="#i-note"></use></svg><span>View logs</span></button>
+            <div class="ctx-divider"></div>
+            <button class="ctx-item" data-ctx="refresh_one"><svg class="ico ico-16" aria-hidden="true"><use href="#i-refresh"></use></svg><span>Refresh</span></button>
+            <button class="ctx-item danger" data-ctx="delete"><svg class="ico ico-16" aria-hidden="true"><use href="#i-trash"></use></svg><span>Remove client</span></button>
+          </div>
+        </div>
+
+        <div class="ctx-section" data-ctxsection="tools">
+          <button class="ctx-sec-head" type="button">
+            <span class="ctx-sec-title">Tools</span>
+            <span class="ctx-sec-arrow"><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
+          </button>
+          <div class="ctx-sec-body">
+            <button class="ctx-item" data-ctx="filter_this"><svg class="ico ico-16" aria-hidden="true"><use href="#i-search"></use></svg><span>Filter this PC</span></button>
+            <button class="ctx-item" data-ctx="toggle_fav"><svg class="ico ico-16" aria-hidden="true"><use href="#i-star"></use></svg><span>Favorite</span></button>
+            <button class="ctx-item" data-ctx="note"><svg class="ico ico-16" aria-hidden="true"><use href="#i-note"></use></svg><span>Add note</span></button>
+            <button class="ctx-item" data-ctx="color_tag">🎨 <span>Set tag</span></button>
+            <div class="ctx-divider"></div>
+            <button class="ctx-item" data-ctx="copy_name"><svg class="ico ico-16" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy PC name</span></button>
+            <button class="ctx-item" data-ctx="copy_ip"><svg class="ico ico-16" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy IP</span></button>
+            <button class="ctx-item" data-ctx="copy_json"><svg class="ico ico-16" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy JSON</span></button>
+            <div class="ctx-divider"></div>
+            <button class="ctx-item" data-ctx="hide"><svg class="ico ico-16" aria-hidden="true"><use href="#i-moon"></use></svg><span>Hide (local)</span></button>
+            <button class="ctx-item" data-ctx="unhide_all"><svg class="ico ico-16" aria-hidden="true"><use href="#i-grid"></use></svg><span>Unhide all</span></button>
+          </div>
+        </div>
+
+        <div class="ctx-section" data-ctxsection="fun">
+          <button class="ctx-sec-head" type="button">
+            <span class="ctx-sec-title">Fun</span>
+            <span class="ctx-sec-arrow"><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
+          </button>
+          <div class="ctx-sec-body">
+            <button class="ctx-item" data-ctx="sparkle"><svg class="ico ico-16" aria-hidden="true"><use href="#i-bolt"></use></svg><span>Highlight row</span></button>
+            <button class="ctx-item" data-ctx="confetti"><svg class="ico ico-16" aria-hidden="true"><use href="#i-bolt"></use></svg><span>Confetti</span></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+  </div>
+
+  <script>
+    window.DASH_TOKEN = "{{ token }}";
+  </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
